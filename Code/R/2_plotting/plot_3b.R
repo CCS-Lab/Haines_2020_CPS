@@ -34,7 +34,7 @@ dd_exp_dim <- function(ss_amount, ss_delay, ll_amount, ll_delay, a, k, c) {
 }
 
 # Real data ll-delay and ss-amount quantiles
-dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_allgroups.rds")
+dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory.rds")
 dat <- dat$ddt_dat
 # Rank most common dd pairs for plotting purposes
 dd_pairs <- data.frame(ll_delay = dat$delay_later[dat$delay_later!=0],
@@ -90,7 +90,7 @@ beta_k0 <- mean(pars$beta_k[,1])
 beta_k1 <- mean(pars$beta_k[,2])
 
 # Survey responses
-all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_allgroups.rds"))
+all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory.rds"))
 model_dat <- all_dat$survey_dat
 
 # Standardized trait measure for each group

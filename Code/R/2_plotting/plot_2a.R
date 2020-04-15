@@ -15,7 +15,7 @@ datasets <- c("MTURK", "REP", "TAL")
 
 plot_dat <- foreach(d=datasets, .combine = "rbind") %do% {
   # Read in data
-  all_dat <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_", d, ".rds"))
+  all_dat <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_trait_descriptive_", d, ".rds"))
   
   data.frame(Dataset = rep(switch(d,
                                   "MTURK" = "MTURK",
@@ -80,5 +80,5 @@ bi_plot <- ggdraw(p2)
 with(plot_dat, cor.test(BIS[Dataset=="Student"], STAI[Dataset=="Student"]))
 with(plot_dat, cor.test(BIS[Dataset=="MTURK"], STAI[Dataset=="MTURK"]))
 with(plot_dat, cor.test(BIS[Dataset=="SUD"], STAI[Dataset=="SUD"]))
-ggsave(bi_plot, filename = "Data/Figures/fig_2a.pdf",
+ggsave(bi_plot, filename = "Figures/fig_2a.pdf",
        units = "in", dpi = 300, width = 6.5, height = 4.8)

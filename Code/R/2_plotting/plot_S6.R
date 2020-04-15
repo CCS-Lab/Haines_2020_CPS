@@ -16,7 +16,7 @@ stai <- c("s", "t")
 trait_grid <- expand.grid(bis, stai)
 
 plot_data <- foreach(i=1:nrow(trait_grid), .combine = "rbind") %do% {
-  fit <- readRDS(file = paste0("Data/Fitted/explanatory_models_", 
+  fit <- readRDS(file = paste0("Data/Fitted/explanatory_models_trait_", 
                                trait_grid[i,1], "_", trait_grid[i,2], 
                                "_allscales.rds"))
   pars <- rstan::extract(fit)

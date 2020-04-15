@@ -1,0 +1,5 @@
+trialNum matrixIndex leftValue leftTime rightValue rightTime choice
+  0   29  20.00  0.00 800.00 21.50  1
+  1 1118 630.00  0.00 800.00  1.00  1
+  2  181 110.00  0.00 800.00  0.71  1
+  3  243 140.00  0.00 800.00 12.90  1

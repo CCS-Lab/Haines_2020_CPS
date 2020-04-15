@@ -21,7 +21,7 @@ m1 <- stan_model("Code/Stan/trait_descriptive_model.stan")
 
 for (d in datasets) {
   # Keep mturk data preprocessed by Andrew
-  all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_", d,".rds"))
+  all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_trait_descriptive_", d,".rds"))
   model_dat <- all_dat$survey_dat
   
   # Data for m0

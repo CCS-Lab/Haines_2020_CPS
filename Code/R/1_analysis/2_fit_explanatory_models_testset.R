@@ -24,7 +24,7 @@ sv <- function(x) {
 m1 <- stan_model("Code/Stan/trait_explanatory_model_testset.stan")
 
 # Keep mturk data preprocessed by Andrew
-all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_allgroups_testset.rds"))
+all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory_testset.rds"))
 model_dat <- all_dat$survey_dat
 test_ids <- all_dat$test_ids
 

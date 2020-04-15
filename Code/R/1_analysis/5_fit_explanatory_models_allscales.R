@@ -23,7 +23,7 @@ sv <- function(x, STUD_ids, MTURK_ids, SUD_ids) {
 m1 <- stan_model("Code/Stan/trait_explanatory_model.stan")
 
 # Read in pre-procesed data
-all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_allgroups_allscales.rds"))
+all_dat   <- readRDS(file = paste0("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory_allscales.rds"))
 model_dat <- all_dat$survey_dat
 
 # get ids

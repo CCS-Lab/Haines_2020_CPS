@@ -22,7 +22,7 @@ delay_dis <- function(x, k) {
 }
 
 # Real data ll-delay and ss-amount quantiles
-dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_allgroups.rds")
+dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory.rds")
 dat <- dat$ddt_dat
 
 # Range of values for plotting

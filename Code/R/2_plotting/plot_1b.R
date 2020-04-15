@@ -27,7 +27,7 @@ dd_exp_dim <- function(ss_amount, ss_delay, ll_amount, ll_delay, a, k, c) {
 }
 
 # Real data ll-delay and ss-amount quantiles
-dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_allgroups.rds")
+dat <- readRDS("Data/Preprocessed/1_preprocessed_DDT_trait_explanatory.rds")
 dat <- dat$ddt_dat
 # Rank most common dd pairs for plotting purposes
 dd_pairs <- data.frame(ll_delay = dat$delay_later[dat$delay_later!=0],

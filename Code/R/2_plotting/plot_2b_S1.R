@@ -70,9 +70,6 @@ bis_plot <- ggplot(plot_dat %>% filter(Model == "Trait"), aes(x = BIS, fill = Da
   ylab("Posterior Density") +
   theme_cowplot(font_size = 18) +
   theme(legend.position = "none")
-ggsave(bis_plot, filename = "Figures/fig_S1a.pdf", 
-       units = "in", dpi = 300, height = 4, width = 3.53)
-
 
 stai_stu <- plot_dat %>% 
   filter(Model == "Trait" & Dataset == "Student") %>% 
@@ -101,8 +98,6 @@ stai_plot <- ggplot(plot_dat %>% filter(Model == "Trait"), aes(x = STAI, fill = 
   ylab("") +
   theme_cowplot(font_size = 18) +
   theme(legend.position = "none")
-ggsave(stai_plot, filename = "Figures/fig_S1b.pdf", 
-       units = "in", dpi = 300, height = 4, width = 3.53)
 
 # Interaction plot
 int_stu <- plot_dat %>% 
@@ -131,8 +126,6 @@ int_plot <- ggplot(plot_dat %>% filter(Model == "Trait"), aes(x = INT, fill = Da
   xlab("BIS-NP * STAI-S") +
   ylab("") +
   theme_cowplot(font_size = 18)
-ggsave(int_plot, filename = "Figures/fig_S1c.pdf", 
-       units = "in", dpi = 300, height = 4, width = 4.94)
 
 eff_plot <- plot_grid(bis_plot, stai_plot, int_plot, ncol = 3, rel_widths = c(1, 1, 1.4))
 ggsave(eff_plot, filename = "Figures/fig_S1.pdf", 

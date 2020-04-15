@@ -15,7 +15,7 @@ ll_trait_test <- extract_log_lik(trait, merge_chains = T, parameter_name = "log_
 rm(trait)
 trait_incon <- readRDS("Data/Fitted/explanatory_models_trait_incongruent_testset.rds")
 trait_incon_test <- extract_log_lik(trait_incon, merge_chains = T, parameter_name = "log_lik_test")
-rm(tin)
+rm(trait_incon)
 
 # Computing log pointwise predictive density (LPPD)
 lppd_base <- sum(log(colMeans(exp(ll_base_test))))

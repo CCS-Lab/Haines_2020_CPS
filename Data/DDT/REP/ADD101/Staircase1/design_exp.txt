@@ -1,0 +1,1 @@
+trialNum, leftMoney, leftTime, rightMoney, rightTime
