@@ -94,7 +94,7 @@ generated quantities {
     }
   }
   
-  k_test = exp(beta_k[1] + X_test[:,1] * beta_a[2]);
+  k_test = exp(beta_k[1] + X_test[:,1] * beta_k[2]);
   a_test = exp(beta_a[1] + X_test[:,2] * beta_a[2]);
   mu_c = Phi_approx(mu_p) * 5;
   
