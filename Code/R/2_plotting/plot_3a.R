@@ -79,7 +79,7 @@ for (d in datasets) {
   all_dat <- rbind(all_dat, plot_dat)
 }
 all_dat$Dataset <- factor(all_dat$Dataset, 
-                          levels = c("REP", "MTURK", "TAL_fixed_demo"),
+                          levels = c("REP", "MTURK", "TAL"),
                           labels = c("Student", "MTURK", "SUD"))
 all_dat$data_bis <- interaction(all_dat$Dataset, all_dat$bis)
 all_dat$data_bis <- factor(all_dat$data_bis,
