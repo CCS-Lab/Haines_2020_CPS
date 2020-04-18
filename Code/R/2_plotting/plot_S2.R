@@ -5,7 +5,6 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(foreach)
-library(rethinking)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 

@@ -31,11 +31,6 @@ STUD_ids  <- grep(x = model_dat$ID, pattern = "^ADD")
 SUD_ids   <- grep(x = model_dat$ID, pattern = "^TAL")
 MTURK_ids <- which(!(seq_along(model_dat$ID) %in% c(STUD_ids, SUD_ids)))
 
-# "base"
-dat_m0 <- list(N_subjects = length(model_dat$ID),
-               X          = cbind(rep(0, length(model_dat$ID)), 
-                                  rep(0, length(model_dat$ID))),
-               N_preds = 2)
 # "trait_np_s"
 dat_m1 <- list(N_subjects = length(model_dat$ID),
                X          = cbind(sv(model_dat$bis_noplan, STUD_ids, MTURK_ids, SUD_ids),
@@ -68,7 +63,6 @@ dat_m6 <- list(N_subjects = length(model_dat$ID),
                N_preds    = 2)
 
 # Append all
-dat_m0 <- append(all_dat$ddt_dat, dat_m0)
 dat_m1 <- append(all_dat$ddt_dat, dat_m1)
 dat_m2 <- append(all_dat$ddt_dat, dat_m2)
 dat_m3 <- append(all_dat$ddt_dat, dat_m3)
@@ -77,13 +71,12 @@ dat_m5 <- append(all_dat$ddt_dat, dat_m5)
 dat_m6 <- append(all_dat$ddt_dat, dat_m6)
 
 # For parallel fitting
-all_dat <- list(dat_m0, dat_m1, dat_m2, dat_m3, dat_m4, dat_m5, dat_m6)
+all_dat <- list(dat_m1, dat_m2, dat_m3, dat_m4, dat_m5, dat_m6)
 
-model_names <- c("base", 
-                 "trait_np_s", "trait_mot_s", "trait_att_s",
+model_names <- c("trait_np_s", "trait_mot_s", "trait_att_s",
                  "trait_np_t", "trait_mot_t", "trait_att_t")
-seeds <- c(rep(43202, 5), 43201, 43202)
-deltas <- c(rep(.8, 5), .95, .8)
+seeds <- c(rep(43202, 4), 43201, 43202)
+deltas <- c(rep(.8, 4), .95, .8)
 
 cl <- makeCluster(length(model_names))
 registerDoParallel(cl)

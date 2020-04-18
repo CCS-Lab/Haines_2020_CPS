@@ -29,22 +29,29 @@ parameters {
   // K
   // Declare all parameters as vectors for vectorizing
   // Hyper(group)-parameters  
-  vector<lower=0>[2] sigma;
+  real mu_p;
+  vector<lower=0>[3] sigma;
     
   // Subject-level raw parameters (for Matt trick)
   vector[N] k_pr;
   vector[N] a_pr;
+  vector[N] c_pr;
 }
 transformed parameters {
   // Transform subject-level raw parameters 
   vector[N] k;
   vector[N] a;
+  vector[N] c;
   vector[N] k_means;
   vector[N] a_means;
   
   k_means = beta_k[1] + X_train[:,1] * beta_k[2];
   a_means = beta_a[1] + X_train[:,2] * beta_a[2];
-        
+  
+  for (i in 1:N) {
+    c[i] = Phi_approx(mu_p + sigma[3] * c_pr[i]) * 5;
+  }
+
   k = exp(k_means + sigma[1] * k_pr);
   a = exp(a_means + sigma[2] * a_pr);
 }
@@ -53,10 +60,11 @@ model{
   sigma ~ normal(0, 0.2);
   k_pr  ~ normal(0, 1);
   a_pr  ~ normal(0, 1);
+  c_pr  ~ normal(0, 1);
   
   // regression
-  beta_k[1] ~ normal(0,20);
-  beta_a[1] ~ normal(0,20);
+  beta_k[1] ~ normal(0,1);
+  beta_a[1] ~ normal(0,1);
   beta_k[2] ~ normal(0,1);
   beta_a[2] ~ normal(0,1);
     
@@ -68,7 +76,7 @@ model{
     for (t in 1:(Tsubj[i])) {
       ev_later   = pow(amount_later[i,t], a[i])  / ( 1 + k[i] * delay_later[i,t] );
       ev_sooner  = pow(amount_sooner[i,t], a[i]) / ( 1 + k[i] * delay_sooner[i,t] );
-      choice[i,t] ~ bernoulli_logit( (ev_later - ev_sooner) );
+      choice[i,t] ~ bernoulli_logit( c[i] * (ev_later - ev_sooner) );
     }
   }
 }
@@ -77,6 +85,7 @@ generated quantities {
   real log_lik_test[N_test, T];
   vector[N_test] k_test;
   vector[N_test] a_test;
+  real mu_c;
   
   log_lik = rep_vector(0, N);
   for (i in 1:N_test) {
@@ -87,6 +96,7 @@ generated quantities {
   
   k_test = exp(beta_k[1] + X_test[:,1] * beta_k[2]);
   a_test = exp(beta_a[1] + X_test[:,2] * beta_a[2]);
+  mu_c = Phi_approx(mu_p) * 5;
   
   { // Local section
     for (i in 1:N) {
@@ -97,7 +107,7 @@ generated quantities {
       for (t in 1:(Tsubj[i])) {
         ev_later   = pow(amount_later[i,t], a[i])  / ( 1 + k[i] * delay_later[i,t] );
         ev_sooner  = pow(amount_sooner[i,t], a[i]) / ( 1 + k[i] * delay_sooner[i,t] );
-        log_lik[i] += bernoulli_logit_lpmf(choice[i,t] | (ev_later - ev_sooner) );
+        log_lik[i] += bernoulli_logit_lpmf(choice[i,t] | c[i] * (ev_later - ev_sooner) );
       }
     }
     // for test set
@@ -109,7 +119,7 @@ generated quantities {
       for (t in 1:(Tsubj_test[i])) {
         ev_later   = pow(amount_later_test[i,t], a_test[i])  / ( 1 + k_test[i] * delay_later_test[i,t] );
         ev_sooner  = pow(amount_sooner_test[i,t], a_test[i]) / ( 1 + k_test[i] * delay_sooner_test[i,t] );
-        log_lik_test[i,t] = bernoulli_logit_lpmf(choice_test[i,t] | (ev_later - ev_sooner) );
+        log_lik_test[i,t] = bernoulli_logit_lpmf(choice_test[i,t] | mu_c * (ev_later - ev_sooner) );
       }
     }
   }
