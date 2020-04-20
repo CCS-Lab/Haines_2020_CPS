@@ -3,6 +3,7 @@ library(rstan)
 library(tidyr)
 library(foreach)
 library(ggplot2)
+library(ggnewscale)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 
@@ -128,6 +129,7 @@ p1 <- ggplot(plot_dat, aes(x = a, y = k, fill = pr_LL, color = pr_LL)) +
   geom_tile(stat = "identity") +
   scale_fill_gradient2("Pr(LL)", low = "#b0101d", mid = "white", high = "#1810b0", midpoint = .5, limits = c(0,1)) +
   scale_color_gradient2("Pr(LL)", low = "#b0101d", mid = "white", high = "#1810b0", midpoint = .5, limits = c(0,1)) +
+  new_scale("color") +
   geom_point(data = plot_pars, aes(x = mu_a, y = mu_k, color = Group, shape = Group), inherit.aes = F) +
   geom_errorbarh(data = plot_pars, aes(y = mu_k, xmin = low_a, xmax = high_a, color = Group), inherit.aes = F) +
   geom_errorbar(data = plot_pars, aes(x = mu_a, ymin = low_k, ymax = high_k, color = Group), inherit.aes = F) +

@@ -1,9 +1,6 @@
-rm(list=ls())
-
 library(rstan)
 library(hBayesDM)
 library(dplyr)
-library(loo)
 library(foreach)
 library(cowplot)
 library(latex2exp)

@@ -1,5 +1,3 @@
-rm(list=ls())
-
 library(rstan)
 library(hBayesDM)
 library(dplyr)

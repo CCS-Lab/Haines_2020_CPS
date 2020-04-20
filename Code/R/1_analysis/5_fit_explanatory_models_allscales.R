@@ -1,12 +1,7 @@
-rm(list=ls())
-
 library(rstan)
 library(hBayesDM)
-library(dplyr)
-library(loo)
 library(foreach)
 library(doParallel)
-library(cowplot)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 
@@ -92,8 +87,8 @@ fits <- foreach(m=seq_along(model_names), .packages = "rstan") %dopar% {
                     list(beta_k = c(-4.8, .35),
                          beta_a = c(-.86, -.03),
                          sigma = c(1.9, .3),
-                         k_pr = rnorm(940, 0, 1),
-                         a_pr = rnorm(940, 0, 1))
+                         k_pr = rnorm(937, 0, 1),
+                         a_pr = rnorm(937, 0, 1))
                   },
                   pars    = c("beta_k", "beta_a", "sigma", "log_lik"),
                   control = list(adapt_delta = deltas[m]))

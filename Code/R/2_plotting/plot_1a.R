@@ -2,6 +2,7 @@ library(dplyr)
 library(tidyr)
 library(foreach)
 library(ggplot2)
+library(cowplot)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 

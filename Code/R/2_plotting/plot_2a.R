@@ -1,9 +1,6 @@
-rm(list=ls())
-
 library(rstan)
 library(hBayesDM)
 library(dplyr)
-library(loo)
 library(foreach)
 library(cowplot)
 library(ggpubr)
@@ -57,7 +54,6 @@ pmain <- ggplot(plot_dat, aes(x = BIS, y = STAI, color = Dataset, shape = Datase
   geom_point(size = 2) +
   scale_color_manual(values = c("#1810b0", "gray", "#b0101d")) +
   scale_alpha_manual(values = c(.3, .7), guide = F) +
-  # geom_point(data = plot_dat %>% filter(Dataset == "MTURK"), alpha = .1, size = 2) +
   xlab("BIS-NP") +
   ylab("STAI-S") +
   theme_cowplot(font_size = 18)

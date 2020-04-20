@@ -1,12 +1,7 @@
-rm(list=ls())
-
 library(rstan)
 library(hBayesDM)
-library(dplyr)
-library(loo)
 library(foreach)
 library(doParallel)
-library(cowplot)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 
@@ -57,22 +52,20 @@ all_dat <- list(dat_m0, dat_m1, dat_m2)
 model_names <- c("base", "trait", "trait_incongruent")
 
 # Initialize parameter estimates for trouble fitting the trait congruent model (convergence problems)
-inits <- list("random",
-              function() {
-                list(beta_a = c(-.86, -.03),
-                     beta_k = c(-4.8, .35),
-                     sigma = c(1.9, .34),
-                     k_pr = rnorm(932, 0, .1),
-                     a_pr = rnorm(932, 0, .1))
-              },
-              "random")
+inits <- function() {
+  list(beta_a = c(-.86, -.03),
+       beta_k = c(-4.8, .35),
+       sigma = c(1.9, .34),
+       k_pr = rnorm(932, 0, .1),
+       a_pr = rnorm(932, 0, .1))
+}
 
 cl <- makeCluster(length(model_names))
 registerDoParallel(cl)
 fits <- foreach(m=seq_along(model_names), .packages = "rstan") %dopar% {
   fit <- sampling(all_m[[m]], 
            data   = all_dat[[m]], 
-           init   = inits[[m]],
+           init   = inits,
            iter   = 4500, 
            warmup = 1500, 
            chains = 8, 

@@ -1,12 +1,6 @@
-rm(list=ls())
-
 library(rstan)
-library(hBayesDM)
-library(dplyr)
-library(loo)
 library(foreach)
 library(doParallel)
-library(cowplot)
 
 setwd("~/Dropbox/Box/GitHub/Haines_2020_CPS/")
 
